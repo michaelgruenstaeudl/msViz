@@ -1,1 +1,1 @@
-# msViz
+# Visualization code for current manuscripts
