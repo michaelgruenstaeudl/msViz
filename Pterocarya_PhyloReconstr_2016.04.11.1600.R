@@ -1,0 +1,5 @@
+library(phyloch)
+tree = read.beast("~/Desktop/Pterocarya_2016.04.06_withConstraints_MCC.tre")
+nodelabels()
+tree_n = root(tree, node=27)
+plot.phylo(tree_n, edge.width=3, cex=1.2, root.edge=TRUE, label.offset=0.0002, align.tip.label = TRUE, no.margin = TRUE)
