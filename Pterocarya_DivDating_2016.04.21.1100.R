@@ -10,12 +10,20 @@ library(phyloch)
 library(tools)
 
 # INPUT
-inf_tree = "/home/michael_science/git/michaelgruenstaeudl_msViz/example/Pterocarya_2016.04.08_NormCalPnt_MCC.tre"
+# Pterocarya:
+inf_tree = "/home/michael_science/git/michaelgruenstaeudl_msViz/example/Pterocarya_DivDating_2016.04.20_SpeciationYule_combined_postBurnin.MCC.tre"
 #inf_char=NA
-inf_char = "/home/michael_science/git/michaelgruenstaeudl_msViz/example/Pterocarya_2016.04.08_NormCalPnt_MCC.csv"
+inf_char = "/home/michael_science/git/michaelgruenstaeudl_msViz/example/Pterocarya_occurrence.csv"
+# Pyrus:
+#inf_tree = "/home/michael_science/git/michaelgruenstaeudl_msViz/example/Pyrus_DivDating_2016.04.20_combined_postBurnin_MCC.tre"
+#inf_char=NA
+#inf_char = "/home/michael_science/git/michaelgruenstaeudl_msViz/example/Pyrus_occurrence.csv"
 
 # GREYSHADE MAPPING
-char_states = c(0,1) # Adjust according to inf_char
+# Pterocarya:
+char_states = c(0,1,2,3) # Adjust according to inf_char
+# Pyrus:
+#char_states = c(0,1,2,3,4) # Adjust according to inf_char
 my_colors = gray.colors(length(char_states))
 mapping = data.frame(states=char_states, colors=my_colors)
 
@@ -32,7 +40,10 @@ if (! is.na(inf_char)) {
 
 # SET THE AGE OF THE ROOT
 #tree$root.time = max(dist.nodes(tree))
-tree$root.time = 20.74 # Is mean root age of MCC tree
+# Pterocarya:
+tree$root.time = 19.12 # Is mean root age of MCC tree
+# Pyrus:
+#tree$root.time = 82.67 # Is mean root age of MCC tree
 
 # START TO SAVE GRAPHIC
 svg(outf, width=7, height=12)
@@ -44,7 +55,10 @@ svg(outf, width=7, height=12)
                   cex.tip=0.9,
                   cex.ts=0.9,
                   width=2,
-                  x.lim=c(-20, 35),
+                  # Pterocarya:
+                  x.lim=c(-20, 30),
+                  # Pyrus:
+                  #x.lim=c(-20, 100),
                   #x.lim=c(-12.33662, 48.07662), # Phyloch message: "HPD bar(s) for nodes 26 exceed(s) plot region. Try setting "x.lim" to c(-12.33662, 48.07662)"
                   ts.col=FALSE,
                   units=c("Period","Epoch"))
@@ -52,8 +66,8 @@ svg(outf, width=7, height=12)
     # PLOT THE 95% CONFIDENCE INTERVALS
     HPDbars(tree,
             label="height_95%_HPD",
-            broken=FALSE,
-            col=gray(0.01,0.2)) # gray(0.01,0.15) generates transparency
+            col=gray(0.02,0.2), # gray(0.01,0.15) generates transparency
+            broken=FALSE)
 
     # IMPORTANT: Adding the node dots must occur after HPD bars have been added
     # Add black outer dots around every node
